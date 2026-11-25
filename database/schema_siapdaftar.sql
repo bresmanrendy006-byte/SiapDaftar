@@ -69,7 +69,7 @@ language sql stable security invoker as $$
       ((s.semester_min is null or p.semester >= s.semester_min)
         and (s.semester_max is null or p.semester <= s.semester_max))     as semester_ok,
       case when s.min_gpa is null then true
-           when p.gpa is null     then null      -- IPK belum diisi: tidak bisa dicek
+           when p.gpa is null     then null      -- GPA not provided: cannot be checked
            else p.gpa >= s.min_gpa end                                     as gpa_ok
     from scholarships s, p
     where s.is_verified
@@ -81,10 +81,10 @@ language sql stable security invoker as $$
          when gpa_ok is null then 'partially eligible'
          else 'fully eligible' end,
     array_remove(array[
-      case when not program_ok  then 'Program studi tidak termasuk' end,
-      case when not semester_ok then 'Semester tidak sesuai' end,
-      case when gpa_ok is false then 'IPK di bawah minimal' end,
-      case when gpa_ok is null  then 'IPK belum diisi, belum bisa dicek' end
+      case when not program_ok  then 'Your study program is not on the eligible list' end,
+      case when not semester_ok then 'Your semester is outside the allowed range' end,
+      case when gpa_ok is false then 'Your GPA is below the minimum' end,
+      case when gpa_ok is null  then 'GPA not provided, so this requirement cannot be checked yet' end
     ], null)
   from c
   order by deadline;
