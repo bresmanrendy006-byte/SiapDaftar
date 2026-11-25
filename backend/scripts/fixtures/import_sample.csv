@@ -1,0 +1,3 @@
+campus_id,name,provider,level,allowed_programs,semester_min,semester_max,min_gpa,other_requirements,required_documents,deadline,apply_method,source_url,accessed_on
+1,[IMPORT-TEST] Sample A,Test Provider,S1,Informatics; Electrical Engineering,1,8,3.00,"Test note, with comma",Transcript; CV,2027-01-31,Online (test),https://example.org/import-test-a,2026-11-25
+1,[IMPORT-TEST] Sample B,Test Provider,S1,,,,,,Transcript,2027-02-15,Email (test),https://example.org/import-test-b,2026-11-25
