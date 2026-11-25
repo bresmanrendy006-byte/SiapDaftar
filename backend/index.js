@@ -51,7 +51,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/profile', require('./routes/profile'));
 app.use('/api/matches', require('./routes/matches'));
-// Task 5 akan menambah router saved di sini
+app.use('/api/saved', require('./routes/saved'));
 
 // ---------- Static frontend (opsional, kalau folder frontend/ ada) ----------
 const frontendDir = path.join(__dirname, '..', 'frontend');
