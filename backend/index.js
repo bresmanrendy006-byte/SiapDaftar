@@ -53,10 +53,23 @@ app.use('/api/profile', require('./routes/profile'));
 app.use('/api/matches', require('./routes/matches'));
 app.use('/api/saved', require('./routes/saved'));
 
-// ---------- Static frontend (opsional, kalau folder frontend/ ada) ----------
-const frontendDir = path.join(__dirname, '..', 'frontend');
-if (fs.existsSync(frontendDir)) {
-  app.use(express.static(frontendDir));
+// ---------- Static frontend ----------
+// 1) Kalau ada hasil build (frontend/dist, mis. dari Vite), sajikan itu.
+// 2) Kalau frontend/ adalah file static biasa (tanpa package.json), sajikan folder itu.
+// 3) Kalau frontend/ adalah project Vite yang belum di-build, jangan sajikan file sumbernya.
+const frontendRoot = path.join(__dirname, '..', 'frontend');
+const frontendDist = path.join(frontendRoot, 'dist');
+const hasBuild = fs.existsSync(path.join(frontendDist, 'index.html'));
+const isBuildProject = fs.existsSync(path.join(frontendRoot, 'package.json'));
+
+if (hasBuild) {
+  app.use(express.static(frontendDist));
+} else if (!isBuildProject && fs.existsSync(frontendRoot)) {
+  app.use(express.static(frontendRoot));
+} else if (isBuildProject) {
+  console.log(
+    'Frontend is a build project and has no build yet. Run "npm run dev" in frontend/ (port 5173) or "npm run build" there to serve it from this server.'
+  );
 }
 
 // ---------- 404 & error handler ----------
