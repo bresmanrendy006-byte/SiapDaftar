@@ -17,7 +17,7 @@ This folder contains the backend (REST API). It was built for the STACK 2026 hac
 | Dummy data seed and one-command removal | Working |
 | CSV-to-SQL importer for real scholarship data | Working (generation tested offline); not yet verified on real data |
 | Real ITB scholarship data | none yet |
-| Deployment | vercel |
+| Deployment | Not deployed (local demo) |
 | Deadline reminders, application checklist, document upload, more campuses, password reset | **Planned, not built** (section 11) |
 
 "Working, tested" means the scripts in section 7 passed against our development Supabase project on 25 Nov 2026.
